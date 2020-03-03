@@ -3,15 +3,16 @@ import Form from "./form";
 import ItemList from "./itemList";
 import Loader from "./loader";
 import Search from "./search";
+import Filter from "./filter";
 
 const Home = () => {
   const styles = {
     form: {
       display: "flex",
-      flexDirection:"column",
+      flexDirection: "column",
       justifyContent: "center",
       alignItems: "center",
-      padding:"10px"
+      padding: "10px"
     }
   };
   const [itemList, setItemList] = useState([]);
@@ -28,7 +29,8 @@ const Home = () => {
       {!loader ? (
         <div style={styles.form}>
           <Search />
-          <br/>
+          <Filter />
+          <br />
           <Form getItem={getItem} />
           <ItemList itemList={itemList} />
         </div>

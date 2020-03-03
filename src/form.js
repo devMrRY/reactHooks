@@ -1,6 +1,8 @@
 import React, { useRef, useState, useEffect } from "react";
 
 const Form = ({ getItem }) => {
+  console.log('in form');
+  
   const styles = {
     form: {
       display: "flex",

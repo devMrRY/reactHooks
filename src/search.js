@@ -1,14 +1,23 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 const Search = () => {
+  console.log('in search');
+  
   const [text, setText] = useState("");
-  const [timer, setTimer]=useState(2000)
+  const textRef=useRef(text)
+  textRef.current=text;
+
   const handleSearch = text => {
     setText(text);
-    setTimeout(()=>{
-        
-    },timer)
   };
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      console.log(textRef.current);
+    }, 1000);
+    return () => clearTimeout(timer);
+  }, [text]);
+
   return (
     <>
       <input
