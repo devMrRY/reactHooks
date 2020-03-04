@@ -20,13 +20,12 @@ const Home = () => {
   const [itemList, setItemList] = useState([]);
   const [loader, setLoader] = useState(false);
   const [searchKeyword, setSearchKeyword] = useState("");
-  const [sortBy, setSortBy] = useState("");
 
   const getItem = item => {
     setTimeout(() => {
       setItemList([...itemList, item]);
       setLoader(false);
-    }, 100);
+    }, 300);
     setLoader(true);
   };
 
@@ -35,13 +34,12 @@ const Home = () => {
   };
 
   const handleDelete = (name, qty) => {
-    const arr = itemList.filter(item => item.name != name && item.qty != qty);
+    const arr = itemList.filter(item => item.name !== name && item.qty !== qty);
     setItemList(arr);
   };
 
-  const getSort = sortBy => {
-    console.log("in getSort");
-    setSortBy(sortBy);
+  const getSortedList = sortedList => {
+    setItemList(sortedList);
   };
 
   return (
@@ -49,14 +47,13 @@ const Home = () => {
       {!loader ? (
         <div style={styles.form}>
           <Search getSearchKeyword={getSearchKeyword} />
-          <Sort getSort={getSort} />
+          <Sort itemList={itemList} getSortedList={getSortedList} />
           <br />
           <Form getItem={getItem} />
           <ItemList
             itemList={itemList}
             handleDelete={handleDelete}
             searchKeyword={searchKeyword}
-            sortBy={sortBy}
           />
         </div>
       ) : (
