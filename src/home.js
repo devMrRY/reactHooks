@@ -5,18 +5,25 @@ import Loader from "./loader";
 import Search from "./search";
 import Sort from "./sort";
 
-const Home = () => {
-  console.log("in home");
-
-  const styles = {
-    form: {
+const myStyles = () => {
+  return {
+    content: {
       display: "flex",
       flexDirection: "column",
       justifyContent: "center",
       alignItems: "center",
       padding: "10px"
+    },
+    header: {
+      display: "flex",
+      padding: "10px"
     }
   };
+};
+const Home = () => {
+  console.log("in home");
+
+  const styles = myStyles();
   const [itemList, setItemList] = useState([]);
   const [loader, setLoader] = useState(false);
   const [searchKeyword, setSearchKeyword] = useState("");
@@ -45,10 +52,11 @@ const Home = () => {
   return (
     <>
       {!loader ? (
-        <div style={styles.form}>
-          <Search getSearchKeyword={getSearchKeyword} />
-          <Sort itemList={itemList} getSortedList={getSortedList} />
-          <br />
+        <div style={styles.content}>
+          <div style={styles.header}>
+            <Search getSearchKeyword={getSearchKeyword} />
+            <Sort itemList={itemList} getSortedList={getSortedList} />
+          </div>
           <Form getItem={getItem} />
           <ItemList
             itemList={itemList}

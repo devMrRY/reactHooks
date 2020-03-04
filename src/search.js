@@ -1,11 +1,17 @@
 import React, { useState, useEffect, useRef } from "react";
 
 const Search = ({ getSearchKeyword }) => {
-  console.log('in search');
-  
+  console.log("in search");
+  const styles = {
+    searchBar: {
+      borderRadius: "25px",
+      padding:"5px",
+      outline:"none"
+    }
+  };
   const [text, setText] = useState("");
-  const textRef=useRef(text)
-  textRef.current=text;
+  const textRef = useRef(text);
+  textRef.current = text;
 
   const handleSearch = text => {
     setText(text);
@@ -13,7 +19,7 @@ const Search = ({ getSearchKeyword }) => {
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      getSearchKeyword(textRef.current)
+      getSearchKeyword(textRef.current);
     }, 300);
     return () => clearTimeout(timer);
   }, [text, getSearchKeyword]);
@@ -21,6 +27,7 @@ const Search = ({ getSearchKeyword }) => {
   return (
     <>
       <input
+        style={styles.searchBar}
         placeholder="Search by name..."
         onChange={e => handleSearch(e.target.value)}
       />

@@ -1,6 +1,22 @@
 import React, { useState, useEffect } from "react";
 
+const myStyles = () => {
+  return {
+    inputSelect: {
+      outline: "none",
+      padding: "5px",
+      border: "none",
+      borderBottom: "solid 0.1px black",
+      margin: "5px"
+    },
+    reverseBtn: {
+      padding: "5px",
+      border: "none"
+    }
+  };
+};
 const Filter = ({ itemList, getSortedList }) => {
+  const styles = myStyles();
   const [sortBy, setSortBy] = useState("");
   const [reverse, setReverse] = useState(false);
 
@@ -8,9 +24,9 @@ const Filter = ({ itemList, getSortedList }) => {
     setSortBy(sortby);
   };
 
-  const handleReverse=()=>{
-    setReverse(!reverse)
-  }
+  const handleReverse = () => {
+    setReverse(!reverse);
+  };
 
   useEffect(() => {
     switch (sortBy) {
@@ -53,12 +69,18 @@ const Filter = ({ itemList, getSortedList }) => {
 
   return (
     <>
-      <select onChange={e => handleSortType(e.target.value)}>
+      <select
+        style={styles.inputSelect}
+        onChange={e => handleSortType(e.target.value)}
+      >
+        <option hidden>sort by</option>
         <option>name</option>
         <option>qty</option>
         <option>time</option>
       </select>
-      <button onClick={e => handleReverse()}>^</button>
+      <button style={styles.reverseBtn} onClick={e => handleReverse()}>
+        ^
+      </button>
     </>
   );
 };

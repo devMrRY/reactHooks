@@ -1,18 +1,33 @@
 import React, { useRef, useState, useEffect } from "react";
 
-const Form = ({ getItem }) => {
-  console.log('in form');
-  
-  const styles = {
+const myStyles=()=>{
+  return {
     form: {
       display: "flex",
       justifyContent: "center",
       alignItems: "center"
     },
-    qty: {
-      width: "50px"
+    input: {
+      outline: "none",
+      padding: "5px",
+      border: "none",
+      borderBottom: "solid 0.1px black",
+      margin: "5px"
+    },
+    btn: {
+      background: "lightgreen",
+      color: "white",
+      padding: "5px",
+      borderRadius: "5px",
+      border: "none"
     }
   };
+}
+
+const Form = ({ getItem }) => {
+  console.log("in form");
+
+  const styles = myStyles()
   const inputRef = useRef();
   const [name, setName] = useState("");
   const [qty, setQty] = useState("+");
@@ -31,20 +46,21 @@ const Form = ({ getItem }) => {
   };
   return (
     <div style={styles.form}>
-      <form onSubmit={ handleSubmit} >
-      <input
-        ref={inputRef}
-        placeholder="Enter Name"
-        onChange={e => handleFormChange(e.target.value)}
-      />
-      <input
-        type="number"
-        min={0}
-        style={styles.qty}
-        placeholder="qty"
-        onChange={e => handleQty(e.target.value)}
-      />
-      <input type="submit" value="Add" />
+      <form onSubmit={handleSubmit}>
+        <input
+          ref={inputRef}
+          style={styles.input}
+          placeholder="Enter Name"
+          onChange={e => handleFormChange(e.target.value)}
+        />
+        <input
+          type="number"
+          min={0}
+          style={styles.input}
+          placeholder="qty"
+          onChange={e => handleQty(e.target.value)}
+        />
+        <input style={styles.btn} type="submit" value="Add" />
       </form>
     </div>
   );
