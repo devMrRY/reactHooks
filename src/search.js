@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 
-const Search = () => {
-  console.log('in search');
+const Search = ({ getSearchKeyword }) => {
+  // console.log('in search');
   
   const [text, setText] = useState("");
   const textRef=useRef(text)
@@ -13,10 +13,10 @@ const Search = () => {
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      console.log(textRef.current);
-    }, 1000);
+      getSearchKeyword(textRef.current)
+    }, 300);
     return () => clearTimeout(timer);
-  }, [text]);
+  }, [text, getSearchKeyword]);
 
   return (
     <>

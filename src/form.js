@@ -14,7 +14,6 @@ const Form = ({ getItem }) => {
     }
   };
   const inputRef = useRef();
-  const qtyRef = useRef();
   const [name, setName] = useState("");
   const [qty, setQty] = useState("+");
 
@@ -29,25 +28,24 @@ const Form = ({ getItem }) => {
   const handleSubmit = e => {
     e.preventDefault();
     getItem({ name, qty });
-    inputRef.current.value = "";
-    qtyRef.current.value = "";
   };
   return (
     <div style={styles.form}>
+      <form onSubmit={ handleSubmit} >
       <input
         ref={inputRef}
         placeholder="Enter Name"
         onChange={e => handleFormChange(e.target.value)}
       />
       <input
-        ref={qtyRef}
         type="number"
         min={0}
         style={styles.qty}
         placeholder="qty"
         onChange={e => handleQty(e.target.value)}
       />
-      <input type="submit" value="Add" onClick={e => handleSubmit(e)} />
+      <input type="submit" value="Add" />
+      </form>
     </div>
   );
 };
