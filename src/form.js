@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect } from "react";
 
-const myStyles=()=>{
+const myStyles = () => {
   return {
     form: {
       display: "flex",
@@ -15,55 +15,50 @@ const myStyles=()=>{
       margin: "5px"
     },
     btn: {
-      background: "lightgreen",
+      background: "green",
       color: "white",
       padding: "5px",
       borderRadius: "5px",
       border: "none"
     }
   };
-}
+};
 
-const Form = ({ getItem }) => {
+const Form = React.memo(({ getItem }) => {
   console.log("in form");
 
-  const styles = myStyles()
+  const styles = myStyles();
   const inputRef = useRef();
-  const [name, setName] = useState("");
-  const [qty, setQty] = useState("+");
+  const qtyRef = useRef();
 
   useEffect(() => {
     inputRef.current.focus();
   }, []);
 
-  const handleFormChange = name => setName(name);
-
-  const handleQty = qty => setQty(qty);
-
   const handleSubmit = e => {
     e.preventDefault();
-    getItem({ name, qty });
+    const name = inputRef.current.value;
+    const qty = qtyRef.current.value;
+    getItem({ name, qty, time: new Date().getTime() });
+    inputRef.current.value = "";
+    qtyRef.current.value = "";
+    inputRef.current.focus();
   };
   return (
     <div style={styles.form}>
       <form onSubmit={handleSubmit}>
+        <input ref={inputRef} style={styles.input} placeholder="Enter Name" />
         <input
-          ref={inputRef}
-          style={styles.input}
-          placeholder="Enter Name"
-          onChange={e => handleFormChange(e.target.value)}
-        />
-        <input
+          ref={qtyRef}
           type="number"
           min={0}
           style={styles.input}
           placeholder="qty"
-          onChange={e => handleQty(e.target.value)}
         />
         <input style={styles.btn} type="submit" value="Add" />
       </form>
     </div>
   );
-};
+});
 
 export default Form;

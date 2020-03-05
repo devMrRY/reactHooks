@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from "react";
-
+import { FaRegTrashAlt } from "react-icons/fa";
 const myStyles = () => {
   return {
     table: {
-      border:"1px solid black",
-      boderCollapse:"collapse",
-      width:"50%"
+      border: "1px solid black",
+      boderCollapse: "collapse",
+      width: "50%"
     },
-    td:{
-      border:"1px solid black",
-      boderCollapse:"collapse",
-      padding:"5px"
+    td: {
+      border: "1px solid black",
+      boderCollapse: "collapse",
+      padding: "5px",
+      textAlign: "center"
     }
   };
 };
@@ -33,19 +34,27 @@ const ItemList = ({ itemList, handleDelete, searchKeyword }) => {
       <tr key={i}>
         <td style={styles.td}>{item.name}</td>
         <td style={styles.td}>{item.qty}</td>
-        <td style={styles.td}><button onClick={e => handleDelete(item.name, item.qty)}>del</button></td>
+        <td style={styles.td}>
+          <FaRegTrashAlt onClick={e => handleDelete(item.name, item.qty)} />
+        </td>
       </tr>
     ));
 
   return (
-    <table style={styles.table}>
-      <tr style={styles.table}>
-        <th style={styles.table}>Name</th>
-        <th style={styles.table}>Quantity</th>
-        <th style={styles.table}>Action</th>
-      </tr>
-      {renderList()}
-    </table>
+    <>
+      {list.length > 0 && (
+        <table style={styles.table}>
+          <thead>
+            <tr style={styles.table}>
+              <th style={styles.table}>Name</th>
+              <th style={styles.table}>Quantity</th>
+              <th style={styles.table}>Action</th>
+            </tr>
+          </thead>
+          <tbody>{renderList()}</tbody>
+        </table>
+      )}
+    </>
   );
 };
 

@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from "react";
-
+import { FaArrowsAltV } from "react-icons/fa";
 const myStyles = () => {
   return {
+    alignment: {
+      display: "flex",
+      alignItems: "center"
+    },
     inputSelect: {
       outline: "none",
       padding: "5px",
@@ -15,7 +19,9 @@ const myStyles = () => {
     }
   };
 };
-const Filter = ({ itemList, getSortedList }) => {
+const Sort = ({ itemList, getSortedList }) => {
+  console.log('in sort');
+  
   const styles = myStyles();
   const [sortBy, setSortBy] = useState("");
   const [reverse, setReverse] = useState(false);
@@ -61,6 +67,15 @@ const Filter = ({ itemList, getSortedList }) => {
         );
         break;
       case "time":
+        getSortedList(
+          !reverse
+            ? [...itemList].sort(
+                (first, second) => parseInt(first.time) - parseInt(second.time)
+              )
+            : [...itemList].sort(
+                (first, second) => parseInt(second.time) - parseInt(first.time)
+              )
+        );
         break;
       default:
         break;
@@ -68,7 +83,7 @@ const Filter = ({ itemList, getSortedList }) => {
   }, [reverse, sortBy]);
 
   return (
-    <>
+    <div style={styles.alignment}>
       <select
         style={styles.inputSelect}
         onChange={e => handleSortType(e.target.value)}
@@ -78,11 +93,9 @@ const Filter = ({ itemList, getSortedList }) => {
         <option>qty</option>
         <option>time</option>
       </select>
-      <button style={styles.reverseBtn} onClick={e => handleReverse()}>
-        ^
-      </button>
-    </>
+      <FaArrowsAltV onClick={e => handleReverse()} />
+    </div>
   );
 };
 
-export default Filter;
+export default Sort;

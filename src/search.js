@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 
-const Search = ({ getSearchKeyword }) => {
+const Search = React.memo(({ getSearchKeyword }) => {
   console.log("in search");
   const styles = {
     searchBar: {
@@ -20,7 +20,7 @@ const Search = ({ getSearchKeyword }) => {
   useEffect(() => {
     const timer = setTimeout(() => {
       getSearchKeyword(textRef.current);
-    }, 300);
+    }, 500);
     return () => clearTimeout(timer);
   }, [text, getSearchKeyword]);
 
@@ -33,6 +33,6 @@ const Search = ({ getSearchKeyword }) => {
       />
     </>
   );
-};
+});
 
 export default Search;
