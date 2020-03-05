@@ -4,7 +4,7 @@ import ItemList from "./itemList";
 import Loader from "./loader";
 import Search from "./search";
 import Sort from "./sort";
-
+import {Paper} from '@material-ui/core'
 const myStyles = () => {
   return {
     content: {
@@ -12,7 +12,8 @@ const myStyles = () => {
       flexDirection: "column",
       justifyContent: "center",
       alignItems: "center",
-      padding: "10px"
+      padding: "10px",
+      width: "50%"
     },
     header: {
       display: "flex",
@@ -21,14 +22,13 @@ const myStyles = () => {
   };
 };
 const Home = () => {
-  console.log("in home");
-  // debugger;
   const styles = myStyles();
   const [itemList, setItemList] = useState([]);
   const [loader, setLoader] = useState(false);
   const [searchKeyword, setSearchKeyword] = useState("");
 
   const getItem = useCallback(item => {
+
     setTimeout(() => {
       setItemList(list => [...list, item]);
       setLoader(false);
@@ -41,6 +41,7 @@ const Home = () => {
   }, []);
 
   const handleDelete = useCallback((name, qty) => {
+
     setItemList(list =>
       list.filter(item => item.name !== name || item.qty !== qty)
     );
@@ -52,22 +53,25 @@ const Home = () => {
 
   return (
     <>
-      {!loader ? (
-      <div style={styles.content}>
-        <div style={styles.header}>
-          <Search getSearchKeyword={getSearchKeyword} />
-          <Sort itemList={itemList} getSortedList={getSortedList} />
-        </div>
-        <Form getItem={getItem} />
-        <ItemList
+      {loader && <Loader />}
+      <div style={{ display: "flex", justifyContent: "center" }}>
+        <Paper
+          style={{ display: loader ? "none" : "block" }}
+          style={styles.content}
+        >
+          <div style={styles.header}>
+            <Search getSearchKeyword={getSearchKeyword} />
+            <Sort itemList={itemList} getSortedList={getSortedList} />
+          </div>
+          <Form getItem={getItem} />
+          <br/>
+          <ItemList
             itemList={itemList}
             handleDelete={handleDelete}
             searchKeyword={searchKeyword}
           />
+        </Paper>
       </div>
-       ) : (
-         <Loader />
-       )}
     </>
   );
 };

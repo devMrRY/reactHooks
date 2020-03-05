@@ -10,7 +10,7 @@ const Loader = () => {
   };
   return (
     <div style={styles}>
-      <Logo type="Puff" color="#00BFFF" height={100} width={100} />
+      <Logo type="BallTriangle" color="#00BFFF" height={100} width={100} />
     </div>
   );
 };

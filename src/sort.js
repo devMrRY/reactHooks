@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { FaArrowsAltV } from "react-icons/fa";
+import { MdSwapVert } from "react-icons/md";
 const myStyles = () => {
   return {
     alignment: {
@@ -9,18 +9,16 @@ const myStyles = () => {
     inputSelect: {
       outline: "none",
       padding: "5px",
-      border: "none",
-      borderBottom: "solid 0.1px black",
-      margin: "5px"
+      borderRadius:"5px",
+      margin: "5px",
     },
     reverseBtn: {
       padding: "5px",
       border: "none"
-    }
+    },
   };
 };
 const Sort = ({ itemList, getSortedList }) => {
-  console.log('in sort');
   
   const styles = myStyles();
   const [sortBy, setSortBy] = useState("");
@@ -36,7 +34,7 @@ const Sort = ({ itemList, getSortedList }) => {
 
   useEffect(() => {
     switch (sortBy) {
-      case "name":
+      case "Name":
         getSortedList(
           !reverse
             ? [...itemList].sort((first, second) => {
@@ -55,7 +53,7 @@ const Sort = ({ itemList, getSortedList }) => {
               })
         );
         break;
-      case "qty":
+      case "Qty":
         getSortedList(
           !reverse
             ? [...itemList].sort(
@@ -66,7 +64,7 @@ const Sort = ({ itemList, getSortedList }) => {
               )
         );
         break;
-      case "time":
+      case "Time":
         getSortedList(
           !reverse
             ? [...itemList].sort(
@@ -89,11 +87,11 @@ const Sort = ({ itemList, getSortedList }) => {
         onChange={e => handleSortType(e.target.value)}
       >
         <option hidden>sort by</option>
-        <option>name</option>
-        <option>qty</option>
-        <option>time</option>
+        <option>Name</option>
+        <option>Qty</option>
+        <option>Time</option>
       </select>
-      <FaArrowsAltV onClick={e => handleReverse()} />
+      <MdSwapVert onClick={e => handleReverse()} />
     </div>
   );
 };

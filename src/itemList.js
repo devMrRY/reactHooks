@@ -1,15 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { FaRegTrashAlt } from "react-icons/fa";
+
 const myStyles = () => {
   return {
     table: {
       border: "1px solid black",
-      boderCollapse: "collapse",
-      width: "50%"
+      width: "70%"
     },
     td: {
       border: "1px solid black",
-      boderCollapse: "collapse",
       padding: "5px",
       textAlign: "center"
     }
@@ -17,8 +16,7 @@ const myStyles = () => {
 };
 const ItemList = ({ itemList, handleDelete, searchKeyword }) => {
   const styles = myStyles();
-  console.log("in itemlist");
-  const [list, setList] = useState(itemList);
+  const [list, setList] = useState([]);
 
   useEffect(() => {
     setList(itemList);
@@ -44,7 +42,7 @@ const ItemList = ({ itemList, handleDelete, searchKeyword }) => {
     <>
       {list.length > 0 && (
         <table style={styles.table}>
-          <thead>
+          <thead style={{boderCollapse:"separate"}}>
             <tr style={styles.table}>
               <th style={styles.table}>Name</th>
               <th style={styles.table}>Quantity</th>

@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 
 const Search = React.memo(({ getSearchKeyword }) => {
-  console.log("in search");
   const styles = {
     searchBar: {
       borderRadius: "25px",
@@ -10,8 +9,8 @@ const Search = React.memo(({ getSearchKeyword }) => {
     }
   };
   const [text, setText] = useState("");
-  const textRef = useRef(text);
-  textRef.current = text;
+  const searchRef = useRef(text);
+  searchRef.current = text;
 
   const handleSearch = text => {
     setText(text);
@@ -19,7 +18,7 @@ const Search = React.memo(({ getSearchKeyword }) => {
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      getSearchKeyword(textRef.current);
+      getSearchKeyword(searchRef.current);
     }, 500);
     return () => clearTimeout(timer);
   }, [text, getSearchKeyword]);
@@ -27,6 +26,7 @@ const Search = React.memo(({ getSearchKeyword }) => {
   return (
     <>
       <input
+      ref={searchRef}
         style={styles.searchBar}
         placeholder="Search by name..."
         onChange={e => handleSearch(e.target.value)}
