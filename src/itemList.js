@@ -1,21 +1,40 @@
 import React, { useState, useEffect } from "react";
 import { FaRegTrashAlt } from "react-icons/fa";
+import { withStyles, makeStyles } from "@material-ui/core/styles";
+import Table from "@material-ui/core/Table";
+import TableBody from "@material-ui/core/TableBody";
+import TableCell from "@material-ui/core/TableCell";
+import TableContainer from "@material-ui/core/TableContainer";
+import TableHead from "@material-ui/core/TableHead";
+import TableRow from "@material-ui/core/TableRow";
 
-const myStyles = () => {
-  return {
-    table: {
-      border: "1px solid black",
-      width: "70%"
-    },
-    td: {
-      border: "1px solid black",
-      padding: "5px",
-      textAlign: "center"
+const StyledTableCell = withStyles(theme => ({
+  head: {
+    backgroundColor: theme.palette.common.black,
+    color: theme.palette.common.white
+  },
+  body: {
+    fontSize: 14
+  }
+}))(TableCell);
+
+const StyledTableRow = withStyles(theme => ({
+  root: {
+    "&:nth-of-type(odd)": {
+      backgroundColor: theme.palette.background.default
     }
-  };
-};
+  }
+}))(TableRow);
+
+const useStyles = makeStyles({
+  table: {
+    minWidth: 500
+  }
+});
+
 const ItemList = ({ itemList, handleDelete, searchKeyword }) => {
-  const styles = myStyles();
+  const styles = useStyles();
+
   const [list, setList] = useState([]);
 
   useEffect(() => {
@@ -29,28 +48,32 @@ const ItemList = ({ itemList, handleDelete, searchKeyword }) => {
 
   const renderList = () =>
     list.map((item, i) => (
-      <tr key={i}>
-        <td style={styles.td}>{item.name}</td>
-        <td style={styles.td}>{item.qty}</td>
-        <td style={styles.td}>
+      <StyledTableRow key={i}>
+        <StyledTableCell component="th" scope="row">{item.name}</StyledTableCell>
+        <StyledTableCell align="center">{item.qty}</StyledTableCell>
+        <StyledTableCell align="center">
           <FaRegTrashAlt onClick={e => handleDelete(item.name, item.qty)} />
-        </td>
-      </tr>
+        </StyledTableCell>
+      </StyledTableRow>
     ));
 
   return (
     <>
       {list.length > 0 && (
-        <table style={styles.table}>
-          <thead style={{boderCollapse:"separate"}}>
-            <tr style={styles.table}>
-              <th style={styles.table}>Name</th>
-              <th style={styles.table}>Quantity</th>
-              <th style={styles.table}>Action</th>
-            </tr>
-          </thead>
-          <tbody>{renderList()}</tbody>
-        </table>
+        <TableContainer>
+          <Table className={styles.table} aria-label="customized table">
+            <TableHead>
+              <TableRow>
+                <StyledTableCell>Name</StyledTableCell>
+                <StyledTableCell align="center">Quantity</StyledTableCell>
+                <StyledTableCell align="center">Action</StyledTableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {renderList()}
+            </TableBody>
+          </Table>
+        </TableContainer>
       )}
     </>
   );

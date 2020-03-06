@@ -32,7 +32,7 @@ const Home = () => {
     setTimeout(() => {
       setItemList(list => [...list, item]);
       setLoader(false);
-    }, 300);
+    }, 1000);
     setLoader(true);
   }, []);
 
